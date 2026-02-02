@@ -167,7 +167,7 @@ class BandMFExecutionPlanConfig:
   """Configuration for a BandMF-based DPExecutionPlan.
 
   The expected batch size of the batch selection strategy is
-  `num_examples / num_bands * sampling_prob`. In most cases, `num_examples' is
+  `num_examples / num_bands * sampling_prob`. In most cases, `num_examples` is
   ignored because `num_examples` is considered a sensitive quantity under some
   DP definitions. The exception is when using truncation, where it is necessary
   for accounting (hence, one should be careful about the DP definition when
@@ -177,15 +177,18 @@ class BandMFExecutionPlanConfig:
 
   Standard DP-SGD is the special case `num_bands=1`. A typical configuration
   for Poisson-sampled DP-SGD is:
-    - num_bands=1
-    - sampling_prob = expected_batch_size / num_examples
-    - partition_type = INDEPENDENT
-    - neighboring_relation = ADD_OR_REMOVE_ONE
-    - accountant = PLDAccountant(ADD_OR_REMOVE_ONE)
+
+  - num_bands=1
+  - sampling_prob = expected_batch_size / num_examples
+  - partition_type = INDEPENDENT
+  - neighboring_relation = ADD_OR_REMOVE_ONE
+  - accountant = PLDAccountant(ADD_OR_REMOVE_ONE)
+
   This yields the usual Poisson sampling analysis, and uses uncorrelated
   Gaussian noise (the BandMF strategy degenerates to the identity matrix).
 
   References:
+
   - https://arxiv.org/abs/2306.08153
   - https://arxiv.org/abs/2405.15913
 
